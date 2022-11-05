@@ -1,0 +1,10 @@
+# This is Git's per-user configuration file.
+[user]
+name = shreve
+email = eric@shreve.dev
+
+[core]
+  editor = vim
+
+[init]
+  defaultBranch = main
