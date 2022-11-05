@@ -1,0 +1,2 @@
+# figgy
+configuration files
