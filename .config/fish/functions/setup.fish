@@ -20,7 +20,7 @@ function setup
             git --version | grep -e 2.2 -e 2.3 1>/dev/null 2>&1
         end
         function _install_git_on_apt
-            sudo add-apt-repository ppa:git-core/ppa
+            sudo apt-add-repository ppa:git-core/ppa
             sudo apt-get update
             sudo apt-get install git
         end

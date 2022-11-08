@@ -2,7 +2,7 @@ function update-package-manager
     echo Updating package manager
 
     if test (system-type) = apt
-        sudo add-apt-repository ppa:neovim-ppa/unstable -y
+        sudo apt-add-repository ppa:neovim-ppa/unstable -y
         sudo apt-add-repository ppa:fish-shell/release-3 -y
 
         sudo apt-get update -y
