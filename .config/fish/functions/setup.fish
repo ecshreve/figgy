@@ -1,4 +1,5 @@
 function setup
+    log-line-colored "~~~ STARTING setup ~~~" blue
     set system_type (system-type)
     if test $system_type = unknown
         echo "Unsupported OS"
@@ -9,7 +10,6 @@ function setup
 
     setup-locals
 
-    # TOD0
     if has-setup-option setup_ssh_primary
         setup-ssh-key
         log-line-colored "... done setting up ssh" green
@@ -26,11 +26,11 @@ function setup
         end
         install-package --name git --versioncheck _has_recent_git
 
-        install-package --name gls --macport coreutils --apt SKIP --freebsdpkg SKIP # not sure why I need this on macos... exa?
+        # install-package --name gls --macport coreutils --apt SKIP --freebsdpkg SKIP # not sure why I need this on macos... exa?
         install-package --name direnv
         install-package --name entr
-        install-package --name gh --apt SKIP
-        install-package --name dot --macport graphviz --apt graphviz --freebsdpkg graphviz
+        # install-package --name gh --apt SKIP
+        # install-package --name dot --macport SKIP --apt SKIP # graphviz --apt graphviz --freebsdpkg graphviz
         install-package --name rlwrap
         install-package --name shellcheck
 
@@ -45,20 +45,19 @@ function setup
 
         install-package --name autojump
         install-package --name bash
-        install-package --name bat --apt SKIP
-        install-package --name exa --apt SKIP
+        install-package --name bat
+        # install-package --name exa SKIP
         install-package --name fd --apt fd-find
         install-package --name fzf --apt function:_install-fzf-on-apt-system
         install-package --name htop
         install-package --name jq
         install-package --name ncdu
-        install-package --name ripgrep --macport ripgrep --freebsdpkg ripgrep
+        install-package --name ripgrep
         install-package --name tree
 
         log-line-colored "... done setting up cli" green
     end
 
-    # TODO
     if has-setup-option use_tmux
         install-package --name tmux
 
@@ -66,7 +65,7 @@ function setup
     end
 
     if has-setup-option setup_network_tools
-        install-package --name drill
+        install-package --name drill --apt ldnsutils
         install-package --name iftop
         install-package --name iotop --macport SKIP --freebsdpkg SKIP
         install-package --name mosh

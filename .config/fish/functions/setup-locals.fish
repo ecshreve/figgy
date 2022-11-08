@@ -25,4 +25,5 @@ function setup-locals
             end
         end
     end
+    source ~/locals.fish
 end

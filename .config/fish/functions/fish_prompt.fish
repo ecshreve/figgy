@@ -1,6 +1,5 @@
 function fish_prompt
     set -l last_command_status $status
-    set -l fish_prompt_pwd_dir_length 0
 
     set -l normal_color (set_color normal)
 
@@ -51,5 +50,4 @@ function fish_prompt
     end
 
     set_color $fish_color_cwd
-    echo -n " "
 end
