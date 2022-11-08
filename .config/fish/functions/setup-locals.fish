@@ -6,7 +6,8 @@ function setup-locals
     end
 
     for line in (cat ~/locals.fish.example)
-        if string match -rq 'set (?<scope>[A-z-]+) (?<name>[A-z_]+) (?<default>.*)' "$line"
+
+        if string match -r 'set (?<scope>[A-z-]+) (?<name>[A-z_]+) (?<default>.*)' "$line"
             if test -z "$name"
                 echo "Failed to parse line: $line"
                 return 1
@@ -25,5 +26,6 @@ function setup-locals
             end
         end
     end
+
     source ~/locals.fish
 end
