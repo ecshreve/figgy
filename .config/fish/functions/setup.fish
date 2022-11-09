@@ -78,7 +78,7 @@ function setup
     # * GOLANG
     # This function is special cased to my ubuntu install right now.
     if has-setup-option setup_golang_environment
-        if ! is-installed go || test (go version) != "go version go1.19.3 linux/amd64"
+        if ! is-installed go or test (go version) != "go version go1.19.3 linux/amd64"
             wget https://go.dev/dl/go1.19.3.linux-amd64.tar.gz
             rm -rf /usr/local/go
             tar -C /usr/local -xzf go1.19.3.linux-amd64.tar.gz
@@ -136,7 +136,7 @@ function setup
     end
 
     # * NODE
-    if has-setup-option setup_node_environment || has-setup-option setup_neovim
+    if has-setup-option setup_node_environment or has-setup-option setup_neovim
         install-package --name node --macport nodejs14 --apt nodejs
         install-package --name npm --macport npm8 --apt SKIP
 

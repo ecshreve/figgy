@@ -4,6 +4,7 @@ set -euo pipefail
 
 cd "$HOME" || exit
 
+# TODO: check for git install here maybe?
 if ! test -d "$HOME/.cfg" ; then
   echo Cloning dotfiles
 
