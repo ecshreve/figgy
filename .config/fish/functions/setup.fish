@@ -1,11 +1,14 @@
 function setup
     log-line-colored "~~~ STARTING setup ~~~" blue
+
+    # Set some universal vars 
     set system_type (system-type)
     if test $system_type = unknown
         echo "Unsupported OS"
         exit 1
     end
 
+    # There's a bug here but I don't know what it is.
     if test $system_type = macos
         set sigil 
     else
@@ -15,15 +18,22 @@ function setup
     echo -n Setting up on $system_type
     log-line-colored "- $sigil $sigil $sigil -" yellow
 
+    # Set local config variables based on user input or var file.
     setup-locals
     echo "set --universal machine_sigil $sigil" >>~/locals.fish
     log-line-colored "... done setting up locals" green
 
+
+
+    # SSH
     if has-setup-option setup_ssh_primary
         setup-ssh-key
         log-line-colored "... done setting up ssh" green
     end
 
+
+
+    # DEV-TOOLS
     if has-setup-option setup_development_tools
         function _has_recent_git
             git --version | grep -e 2.2 -e 2.3 1>/dev/null 2>&1
@@ -43,6 +53,9 @@ function setup
         log-line-colored "... done setting up dev tools" green
     end
 
+
+
+    # FANCY-TOOLS
     if has-setup-option setup_fancy_cli_tools
         function _install-fzf-on-apt-system
             git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
@@ -70,12 +83,18 @@ function setup
         log-line-colored "... done setting up cli" green
     end
 
+
+
+    # TMUX
     if has-setup-option use_tmux
         install-package --name tmux
 
         log-line-colored "... done setting up tmux" green
     end
 
+
+
+    # NET-TOOLS
     if has-setup-option setup_network_tools
         install-package --name drill --apt ldnsutils
         install-package --name iftop
@@ -85,6 +104,8 @@ function setup
 
         log-line-colored "... done setting up net tools" green
     end
+
+
 
     # TODO: change this to use versioncheck
     #
@@ -129,7 +150,9 @@ function setup
         end
     end
 
-    # * PYTHON
+
+
+    # PYTHON
     if has-setup-option setup_python_environment
         if ! is-installed pip3
             echo Installing pip3
@@ -153,7 +176,9 @@ function setup
         log-line-colored "... done setting up python" green
     end
 
-    # * NODE
+
+
+    # NODE
     if has-setup-option setup_node_environment or has-setup-option setup_neovim
         install-package --name node --macport nodejs14 --apt nodejs
         install-package --name npm --macport npm8 --apt SKIP
@@ -162,7 +187,9 @@ function setup
         log-line-colored "... done setting up node" green
     end
 
-    # * MARKDOWN 
+
+
+    # MARKDOWN 
     if has-setup-option setup_markdown_environment
         install-package --name pandoc
         install-package --name tex --macport texlive-latex-recommended

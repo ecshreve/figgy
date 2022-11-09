@@ -1,6 +1,6 @@
 function has-setup-option --argument-names name
     if ! set -q $name
-        echo "Config unset: $name"
+        log-line-colored "No configuration set for: $name" orange
         return 1
     end
 
