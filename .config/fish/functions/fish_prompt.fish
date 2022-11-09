@@ -7,12 +7,10 @@ function fish_prompt
 
     set -l bold (set_color normal --bold)
     set -l cyan (set_color cyan)
-    set -l red (set_color red)
+    set -l red (set_color BE59F7)
     set -l green (set_color green)
     set -l magenta (set_color magenta --bold)
     set -l blue (set_color blue)
-
-    set -l fish "⋊>"
 
     set -l ahead $blue"↑"
     set -l behind $blue"↓"
@@ -20,8 +18,14 @@ function fish_prompt
     set -l dirty $red"o"
     set -l none $green"◦"
 
-    if test -z "$machine_sigil"
-        set machine_sigil "?"
+    set -l system_type = system-type
+
+    if test -z "$machine_sigil" || test "$machine_sigil" = "?"
+        if test system_type = macos
+            set --universal machine_sigil ""
+        else
+            set --universal machine_sigil ""
+        end
     end
 
     echo -n $prompt_bk""
@@ -56,4 +60,5 @@ function fish_prompt
 
     set_color $fish_color_cwd
     echo -n " "
+
 end

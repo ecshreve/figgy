@@ -8,12 +8,12 @@ function setup
         exit 1
     end
 
-    # There's a bug here but I don't know what it is.
-    if test $system_type = macos
-        set sigil 
-    else
-        set sigil 
-    end
+    # # There's a bug here but I don't know what it is.
+    # if test $system_type = macos
+    #     set sigil 
+    # else
+    #     set sigil 
+    # end
 
     echo -n Setting up on $system_type
     log-line-colored "- $sigil $sigil $sigil -" yellow
