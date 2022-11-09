@@ -1,4 +1,3 @@
-# This is Git's per-user configuration file.
 [user]
 name = shreve
 email = eric@shreve.dev
@@ -21,7 +20,7 @@ email = eric@shreve.dev
 	oldHighlight = red bold 52
 	newNormal = green bold
 	newHighlight = green bold 22
-	
+
 [color "diff"]
 	meta = 11
 	frag = magenta bold

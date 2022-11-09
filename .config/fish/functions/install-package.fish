@@ -21,9 +21,7 @@ function install-package
         case macos
             set -l package (with-default $_flag_name $_flag_macport)
             if test $package = SKIP
-                set_color red
-                echo -- SKIPPING $_flag_name --
-                set_color normal
+                echo log-line-colored "-- SKIPPING $_flag_name --" red
                 return
             end
 
@@ -36,9 +34,7 @@ function install-package
         case apt
             set -l package (with-default $_flag_name $_flag_apt)
             if test $package = SKIP
-                set_color red
-                echo -- SKIPPING $_flag_name --
-                set_color normal
+                echo log-line-colored "-- SKIPPING $_flag_name --" red
                 return
             end
 
@@ -51,9 +47,7 @@ function install-package
         case freebsd
             set -l package (with-default $_flag_name $_flag_freebsdpkg)
             if test $package = SKIP
-                set_color red
-                echo -- SKIPPING $_flag_name --
-                set_color normal
+                echo log-line-colored "-- SKIPPING $_flag_name --" red
                 return
             end
 
@@ -65,6 +59,5 @@ function install-package
 
         case '*'
             echo Could not install $_flag_name on (system-type)
-
     end
 end

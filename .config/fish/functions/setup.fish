@@ -7,15 +7,16 @@ function setup
     end
 
     if test $system_type = macos
-        set -u machine_sigil ""
+        set sigil 
     else
-        set -u machine_sigil ""
+        set sigil 
     end
 
     echo -n Setting up on $system_type
-    log-line-colored $machine_sigil$machine_sigil$machine_sigil yellow
+    log-line-colored "- $sigil $sigil $sigil -" yellow
 
     setup-locals
+    echo "set --universal machine_sigil $sigil" >>~/locals.fish
     log-line-colored "... done setting up locals" green
 
     if has-setup-option setup_ssh_primary
@@ -90,7 +91,12 @@ function setup
     # * GOLANG
     # This function is special cased to my ubuntu install right now.
     if has-setup-option setup_golang_environment
-        if ! is-installed go or test (go version) != "go version go1.19.3 linux/amd64"
+        if test $system_type = macos
+            log-line-colored "SKIPPING GO INSTSALLSTION ON MACOS..." orange
+            return
+        end
+
+        if is-installed go or test (go version) != "go version go1.19.3 linux/amd64"
             wget https://go.dev/dl/go1.19.3.linux-amd64.tar.gz
             rm -rf /usr/local/go
             tar -C /usr/local -xzf go1.19.3.linux-amd64.tar.gz
