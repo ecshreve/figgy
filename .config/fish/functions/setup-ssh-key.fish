@@ -3,7 +3,7 @@ function setup-ssh-key
         return
     end
 
-    if test -z $machine_name or test -z $machine_user
+    if test -z $machine_name || test -z $machine_user
         echo 'Set $machine_name and $machine_user in ~/locals.fish'
         return 1
     end

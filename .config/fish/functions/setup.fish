@@ -6,7 +6,7 @@ function setup
         exit 1
     end
 
-    if test $system_type == darwin
+    if test $system_type = macos
         set -u machine_sigil ""
     else
         set -u machine_sigil ""
