@@ -3,8 +3,6 @@ function setup-locals
         source ~/locals.fish
     else
         touch ~/locals.fish
-        echo "set --universal machine_name "(hostname) >>~/locals.fish
-        echo "set --universal machine_user "(whoami) >>~/locals.fish
     end
 
     set overrides 0

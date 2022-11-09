@@ -20,14 +20,6 @@ function fish_prompt
 
     set -l system_type = system-type
 
-    if test -z "$machine_sigil" || test "$machine_sigil" = "?"
-        if test system_type = macos
-            set --universal machine_sigil ""
-        else
-            set --universal machine_sigil ""
-        end
-    end
-
     echo -n $prompt_bk""
     set_color --background 3c3836
     echo -n $white" $machine_sigil "

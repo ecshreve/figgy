@@ -9,6 +9,7 @@ if test -d "$HOME/.cfg"
     abbr -a cush config push
     abbr -a cst config status
     abbr -a ciff config diff
+    abbr -a clog config log
 
 end
 debug-fish-init end (status -f)

@@ -1,26 +1,36 @@
 function setup
     log-line-colored "~~~ STARTING setup ~~~" blue
 
-    # Set some universal vars 
+    # Check system type
     set system_type (system-type)
     if test $system_type = unknown
         echo "Unsupported OS"
         exit 1
     end
 
-    # # There's a bug here but I don't know what it is.
-    # if test $system_type = macos
-    #     set sigil 
-    # else
-    #     set sigil 
-    # end
+    # 
+    if test $system_type = macos
+        set sigil 
+    else
+        set sigil 
+    end
 
+    # Set local config variables based on user input and var file.
     echo -n Setting up on $system_type
-    log-line-colored "- $sigil $sigil $sigil -" yellow
-
-    # Set local config variables based on user input or var file.
     setup-locals
+    set -l locals_count (count < ~/locals.fish)
+    set -l example_locals_count (count < ~/locals.fish.example)
+
+    if test ! -f ~/locals.fish || test $locals_count -ne $example_locals_count
+        log-line-colored "... some local config variables are not set" red
+    end
+
+    #  Set local machine related values.
+    echo "set --universal machine_name "(hostname) >>~/locals.fish
+    echo "set --universal machine_user "(whoami) >>~/locals.fish
     echo "set --universal machine_sigil $sigil" >>~/locals.fish
+    source ~/locals.fish
+
     log-line-colored "... done setting up locals" green
 
 
