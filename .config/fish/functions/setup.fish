@@ -6,9 +6,17 @@ function setup
         exit 1
     end
 
-    echo Setting up on $system_type
+    if test $system_type == darwin
+        set -u machine_sigil ""
+    else
+        set -u machine_sigil ""
+    end
+
+    echo -n Setting up on $system_type
+    log-line-colored $machine_sigil$machine_sigil$machine_sigil yellow
 
     setup-locals
+    log-line-colored "... done setting up locals" green
 
     if has-setup-option setup_ssh_primary
         setup-ssh-key
@@ -24,13 +32,10 @@ function setup
             sudo apt-get update
             sudo apt-get install git
         end
-        install-package --name git --versioncheck _has_recent_git
+        install-package --name git --versioncheck _has_recent_git --apt function:_install_git_on_apt
 
-        # install-package --name gls --macport coreutils --apt SKIP --freebsdpkg SKIP # not sure why I need this on macos... exa?
         install-package --name direnv
         install-package --name entr
-        # install-package --name gh --apt SKIP
-        # install-package --name dot --macport SKIP --apt SKIP # graphviz --apt graphviz --freebsdpkg graphviz
         install-package --name rlwrap
         install-package --name shellcheck
 
@@ -43,10 +48,16 @@ function setup
             ~/.fzf/install
         end
 
+        function _install-diff-fancy-apt
+            sudo add-apt-repository ppa:aos1/diff-so-fancy
+            sudo apt update -y
+            sudo apt install diff-so-fancy
+        end
+
         install-package --name autojump
         install-package --name bash
         install-package --name bat
-        # install-package --name exa SKIP
+        install-package --name diff-so-fancy --apt function:_install-diff-fancy-apt
         install-package --name fd --apt fd-find
         install-package --name fzf --apt function:_install-fzf-on-apt-system
         install-package --name htop
@@ -67,7 +78,6 @@ function setup
     if has-setup-option setup_network_tools
         install-package --name drill --apt ldnsutils
         install-package --name iftop
-        install-package --name iotop --macport SKIP --freebsdpkg SKIP
         install-package --name mosh
         install-package --name mtr
         install-package --name prettyping
@@ -75,6 +85,8 @@ function setup
         log-line-colored "... done setting up net tools" green
     end
 
+    # TODO: change this to use versioncheck
+    #
     # * GOLANG
     # This function is special cased to my ubuntu install right now.
     if has-setup-option setup_golang_environment
