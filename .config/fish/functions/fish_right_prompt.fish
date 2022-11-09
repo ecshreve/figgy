@@ -1,3 +1,4 @@
+# TODO: tweak this to match the left prompt
 function fish_right_prompt
     set -l normal_color (set_color normal)
     set -l blue (set_color blue)
