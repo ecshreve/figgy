@@ -74,8 +74,8 @@ function setup
 
         function _install-diff-fancy-apt
             sudo add-apt-repository ppa:aos1/diff-so-fancy
-            sudo apt update -y
-            sudo apt install diff-so-fancy
+            sudo apt-get update 
+            sudo apt-get install diff-so-fancy
         end
 
         install-package --name autojump

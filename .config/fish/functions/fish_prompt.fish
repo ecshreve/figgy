@@ -2,10 +2,11 @@ function fish_prompt
     set -l last_command_status $status
 
     set -l normal_color (set_color normal)
+    set -l bold (set_color normal --bold)
+
     set -l white (set_color white)
     set -l prompt_bk (set_color 3c3836)
 
-    set -l bold (set_color normal --bold)
     set -l cyan (set_color cyan)
     set -l red (set_color BE59F7)
     set -l green (set_color green)
@@ -20,6 +21,7 @@ function fish_prompt
 
     set -l system_type = system-type
 
+    # Sigil, working directory, and git info on left prompt.
     echo -n $prompt_bk""
     set_color --background 3c3836
     echo -n $white" $machine_sigil "
@@ -39,18 +41,13 @@ function fish_prompt
         echo -n " "
     end
 
-    # set -l caret ❯
     set -l caret ""
-    # prompt
     if test $last_command_status -eq 0
         echo -n -s $normal_color $green"$caret"
     else
         echo -n -s $normal_color $red"$caret"
     end
 
-
-
     set_color $fish_color_cwd
     echo -n " "
-
 end
