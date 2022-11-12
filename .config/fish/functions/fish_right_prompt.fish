@@ -4,7 +4,8 @@ function fish_right_prompt
     set -l blue (set_color blue)
     set -l green (set_color green)
     set -l orange (set_color yellow)
-    set -l red (set_color red)
+    set -l red (set_color BD3F39)
+
     set -l prompt_bk (set_color 3c3836)
     set -l bk_color (set_color --background 3c3836)
 
@@ -13,11 +14,11 @@ function fish_right_prompt
     set -l cur_time (date -u +%H:%M:%S:%z)
 
     if test $cmd_dur -gt 100
-        set_color red
+        echo -n $red
     else if test $cmd_dur -gt 10
-        set_color yellow
+        echo -n $orange
     else
-        set_color green
+        echo -n $green
     end
 
     #  4 ms | 07:49:30:+0000 
