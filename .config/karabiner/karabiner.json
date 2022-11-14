@@ -18,7 +18,16 @@
                     {
                         "manipulators": [
                             {
-                                "type": "basic",
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^com\\.microsoft\\.VSCode$",
+					    "^org\\.alacritty$"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
                                 "description": "Change CTRL+SPACE to send right arrow",
                                 "from": {
                                     "key_code": "spacebar",
@@ -33,15 +42,7 @@
                                         "key_code": "right_arrow"
                                     }
                                 ],
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^com\\.microsoft\\.VSCode$"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ]
+                                "type": "basic"
                             }
                         ]
                     }
