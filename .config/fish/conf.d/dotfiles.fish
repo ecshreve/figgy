@@ -11,5 +11,8 @@ if test -d "$HOME/.cfg"
     abbr -a ciff config diff
     abbr -a clog config log
 
+    abbr -a gst git status
+    abbr -a gcmsg git commit -m 
+
 end
 debug-fish-init end (status -f)
