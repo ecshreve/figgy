@@ -8,13 +8,6 @@ function setup
         exit 1
     end
 
-    # Set unicode symbol to use in fish prompt and tmux status bar.
-    if test $system_type = macos
-        set sigil 
-    else
-        set sigil 
-    end
-
     # Set local config variables based on input and var file.
     log-line-colored "Setting up on $system_type" blue
 
@@ -26,11 +19,6 @@ function setup
     if test ! -f ~/locals.fish || test $locals_count -ne $example_locals_count
         log-line-colored "... local variables do not match example file" red
     end
-
-    #  Set local machine related values.
-    set --universal machine_name (hostname)
-    set --universal machine_user (whoami)
-    set --universal machine_sigil $sigil
 
     log-line-colored "... done setting up locals" green
 
@@ -74,7 +62,7 @@ function setup
 
         end
 
-        
+
         function _install-diff-fancy-apt
             sudo add-apt-repository ppa:aos1/diff-so-fancy
             sudo apt-get update
@@ -210,11 +198,10 @@ function setup
 
         set -l desired_count (count < ~/.config/fish/fish_plugins)
         set -l installed_count (fisher list | count)
-    
+
         if test $desired_count -ne $installed_count
             log-line-colored "updating fisher plugins" magenta
             fisher update
-            fzf_configure_bindings --directory=\cff --git_log=\cfl --git_status=\cfs --processes=\cfp --variables=\cfv
         end
 
         log-line-colored "... done setting up fish plugins" green

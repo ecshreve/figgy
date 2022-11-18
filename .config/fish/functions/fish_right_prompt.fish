@@ -24,6 +24,6 @@ function fish_right_prompt
     #  4 ms | 07:49:30:+0000 
     # echo -n " $cmd_dur ms | $cur_time " $normal_color
     echo -n ""$bk_color" $cmd_dur ms "
-    echo -n $prompt_bk""$bk_color$blue "$machine_user@$machine_name "$normal_color$prompt_bk""
+    echo -n $prompt_bk""$bk_color$blue "$(whoami)@$hostname "$normal_color$prompt_bk""
 
 end

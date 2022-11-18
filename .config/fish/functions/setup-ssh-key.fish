@@ -3,12 +3,7 @@ function setup-ssh-key
         return
     end
 
-    if test -z $machine_name || test -z $machine_user
-        echo 'Set $machine_name and $machine_user in ~/locals.fish'
-        return 1
-    end
-
-    set --local id "$machine_user@$machine_name"
+    set --local id "$(whoami)@$hostname"
     set --local algo ed25519
     set --local pem_file ~/.ssh/id_$algo
     set --local pub_file ~/.ssh/id_$algo.pub
