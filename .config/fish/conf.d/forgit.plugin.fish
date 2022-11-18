@@ -1,20 +1,20 @@
 # MIT (c) Chris Apple
 
 function forgit::warn
-    printf "%b[Warn]%b %s\n" '\e[0;33m' '\e[0m' "$argv" >&2
+    printf "%b[Warn]%b %s\n" '\e[0;33m' '\e[0m' "$argv" >&2;
 end
 
 function forgit::info
-    printf "%b[Info]%b %s\n" '\e[0;32m' '\e[0m' "$argv" >&2
+    printf "%b[Info]%b %s\n" '\e[0;32m' '\e[0m' "$argv" >&2;
 end
 
 function forgit::inside_work_tree
-    git rev-parse --is-inside-work-tree >/dev/null
+    git rev-parse --is-inside-work-tree >/dev/null;
 end
 
 function forgit::reverse_lines
     # tac is not available on OSX, tail -r is not available on Linux, so we use either of them
-    if command -v tac &>/dev/null
+    if command -v tac &> /dev/null
         tac
     else
         tail -r
@@ -24,32 +24,32 @@ end
 function forgit::previous_commit
     # "SHA~" is invalid when the commit is the first commit, but we can use "--root" instead
     if test (git rev-parse $argv) = (git rev-list --max-parents=0 HEAD)
-        echo --root
+        echo "--root"
     else
         echo "$argv~"
     end
 end
 
 # extract the first git sha occurring in the input and strip trailing newline
-set -g forgit_extract_sha "grep -Eo '[a-f0-9]+' | head -1 | tr -d '[:space:]'"
+set -g forgit_extract_sha  "grep -Eo '[a-f0-9]+' | head -1 | tr -d '[:space:]'"
 
-set -g forgit_pager "$FORGIT_PAGER"
-set -g forgit_show_pager "$FORGIT_SHOW_PAGER"
-set -g forgit_diff_pager "$FORGIT_DIFF_PAGER"
+set -g forgit_pager        "$FORGIT_PAGER"
+set -g forgit_show_pager   "$FORGIT_SHOW_PAGER"
+set -g forgit_diff_pager   "$FORGIT_DIFF_PAGER"
 set -g forgit_ignore_pager "$FORGIT_IGNORE_PAGER"
-set -g forgit_enter_pager "$FORGIT_ENTER_PAGER"
-set -g forgit_log_format "$FORGIT_LOG_FORMAT"
+set -g forgit_enter_pager  "$FORGIT_ENTER_PAGER"
+set -g forgit_log_format   "$FORGIT_LOG_FORMAT"
 
 set -x FORGIT_INSTALL_DIR (dirname (dirname (status -f)))
 
-test -z "$forgit_pager"; and set -g forgit_pager (git config core.pager || echo 'cat')
-test -z "$forgit_show_pager"; and set -g forgit_show_pager (git config pager.show || echo "$forgit_pager")
-test -z "$forgit_diff_pager"; and set -g forgit_diff_pager (git config pager.diff || echo "$forgit_pager")
-test -z "$forgit_ignore_pager"; and set -g forgit_ignore_pager (type -q bat >/dev/null 2>&1 && echo 'bat -l gitignore --color=always' || echo 'cat')
-test -z "$forgit_enter_pager"; and set -g forgit_enter_pager "env LESS='-r' less"
-test -z "$forgit_log_format"; and set -g forgit_log_format "-%C(auto)%h%d %s %C(black)%C(bold)%cr%Creset"
-test -z "$forgit_fullscreen_context"; and set -g forgit_fullscreen_context 10
-test -z "$forgit_preview_context"; and set -g forgit_preview_context 3
+test -z "$forgit_pager";              and set -g forgit_pager        (git config core.pager || echo 'cat')
+test -z "$forgit_show_pager";         and set -g forgit_show_pager   (git config pager.show || echo "$forgit_pager")
+test -z "$forgit_diff_pager";         and set -g forgit_diff_pager   (git config pager.diff || echo "$forgit_pager")
+test -z "$forgit_ignore_pager";       and set -g forgit_ignore_pager (type -q bat >/dev/null 2>&1 && echo 'bat -l gitignore --color=always' || echo 'cat')
+test -z "$forgit_enter_pager";        and set -g forgit_enter_pager  "env LESS='-r' less"
+test -z "$forgit_log_format";         and set -g forgit_log_format   "-%C(auto)%h%d %s %C(black)%C(bold)%cr%Creset"
+test -z "$forgit_fullscreen_context"; and set -g forgit_fullscreen_context "10"
+test -z "$forgit_preview_context";    and set -g forgit_preview_context "3"
 
 set -g forgit_log_preview_options "--graph --pretty=format:'$forgit_log_format' --color=always --abbrev-commit --date=relative"
 
@@ -86,13 +86,13 @@ function forgit::log -d "git commit viewer"
     end
 
     if set -q FORGIT_LOG_GRAPH_ENABLE
-        set graph --graph
+        set graph "--graph"
     else
         set graph ""
     end
 
     eval "git log $graph --color=always --format='$log_format' $argv $forgit_emojify" |
-        env FZF_DEFAULT_OPTS="$opts" fzf
+        env FZF_DEFAULT_OPTS="$opts" fzf 
 
     set fzf_exit_code $status
     # exit successfully on 130 (ctrl-c/esc)
@@ -100,7 +100,7 @@ function forgit::log -d "git commit viewer"
     return $fzf_exit_code
 end
 
-function forgit::extract_file --argument-names path
+function forgit::extract_file --argument-names 'path'
     set no_leading_whitespace (echo $path | sed 's/^[[:space:]]*//')
     set no_m_or_double_question (echo $no_leading_whitespace | cut -d ' ' -f 2-)
     set if_renamed (echo $no_m_or_double_question | sed 's/.* -> //')
@@ -115,8 +115,8 @@ function forgit::diff -d "git diff viewer" --argument-names arg1 arg2
     forgit::inside_work_tree || return 1
     if test -n "$arg1"
         # If this first arg is a commit hash
-        if git rev-parse "$arg1" >/dev/null 2>&1
-            if git rev-parse "$arg2" >/dev/null 2>&1
+        if git rev-parse "$arg1" > /dev/null 2>&1
+            if git rev-parse "$arg2" > /dev/null 2>&1
                 set commits "$arg1 $arg2" && set files "$argv[3..-1]"
             else
                 set commits "$arg1" && set files "$argv[2..-1]"
@@ -143,11 +143,11 @@ function forgit::diff -d "git diff viewer" --argument-names arg1 arg2
         --prompt=\"$commits > \"
     "
 
-    eval git diff --name-status $commits -- $files* |
-        sed -E 's/^([[:alnum:]]+)[[:space:]]+(.*)\$/[\1]\t\2/' |
-        sed ' s/\t/  ->  /2' |
-        expand -t 8 |
-        env FZF_DEFAULT_OPTS="$opts" fzf
+    eval git diff --name-status $commits -- $files* | 
+     sed -E 's/^([[:alnum:]]+)[[:space:]]+(.*)\$/[\1]\t\2/' | 
+     sed ' s/\t/  ->  /2' |
+     expand -t 8 |
+     env FZF_DEFAULT_OPTS="$opts" fzf
 
     set fzf_exit_code $status
     # exit successfully on 130 (ctrl-c/esc)
@@ -210,7 +210,7 @@ function forgit::reset::head -d "git reset HEAD (unstage) selector"
     set files (git diff --cached --name-only --relative | env FZF_DEFAULT_OPTS="$opts" fzf)
     if test -n "$files"
         for file in $files
-            echo $file | tr '\n' '\0' | xargs -I{} -0 git reset -q HEAD {}
+            echo $file | tr '\n' '\0' |xargs -I{} -0 git reset -q HEAD {}
         end
         git status --short
         return
@@ -219,7 +219,7 @@ function forgit::reset::head -d "git reset HEAD (unstage) selector"
 end
 
 # git checkout-restore selector
-function forgit::checkout::file -d "git checkout-file selector" --argument-names file_name --wraps "git checkout --"
+function forgit::checkout::file -d "git checkout-file selector" --argument-names 'file_name' --wraps "git checkout --"
     forgit::inside_work_tree || return 1
 
     if test -n "$file_name"
@@ -250,7 +250,7 @@ function forgit::checkout::file -d "git checkout-file selector" --argument-names
     echo 'Nothing to restore.'
 end
 
-function forgit::checkout::commit -d "git checkout commit selector" --argument-names commit_id --wraps "git checkout"
+function forgit::checkout::commit -d "git checkout commit selector" --argument-names 'commit_id' --wraps "git checkout"
     forgit::inside_work_tree || return 1
 
     if test -n "$commit_id"
@@ -277,7 +277,7 @@ function forgit::checkout::commit -d "git checkout commit selector" --argument-n
     "
 
     if set -q FORGIT_LOG_GRAPH_ENABLE
-        set graph --graph
+        set graph "--graph"
     else
         set graph ""
     end
@@ -311,11 +311,11 @@ function forgit::branch::delete -d "git checkout branch deleter" --wraps "git br
 end
 
 
-function forgit::checkout::branch -d "git checkout branch selector" --argument-names input_branch_name --wraps "git branch"
+function forgit::checkout::branch -d "git checkout branch selector" --argument-names 'input_branch_name' --wraps "git branch"
     forgit::inside_work_tree || return 1
 
     if test -n "$input_branch_name"
-        if git branch --list | grep "$input_branch_name" >/dev/null
+        if git branch --list | grep "$input_branch_name" > /dev/null
             git switch "$input_branch_name"
         else
             git switch -c "$input_branch_name"
@@ -377,7 +377,7 @@ function forgit::clean -d "git clean selector"
 
     if test -n "$files"
         for file in $files
-            echo $file | tr '\n' '\0' | xargs -0 -I{} git clean -xdff {}
+            echo $file | tr '\n' '\0'| xargs -0 -I{} git clean -xdff {}
         end
         git status --short
         return
@@ -385,7 +385,7 @@ function forgit::clean -d "git clean selector"
     echo 'Nothing to clean.'
 end
 
-function forgit::cherry::pick -d "git cherry-picking" --argument-names target --wraps "git cherry-pick"
+function forgit::cherry::pick -d "git cherry-picking" --argument-names 'target' --wraps "git cherry-pick"
     forgit::inside_work_tree || return 1
     set base (git branch --show-current)
     if test -z "$target"
@@ -443,7 +443,7 @@ function forgit::fixup -d "git fixup"
     git diff --cached --quiet && echo 'Nothing to fixup: there are no staged changes.' && return 1
 
     if set -q FORGIT_LOG_GRAPH_ENABLE
-        set graph --graph
+        set graph "--graph"
     else
         set graph ""
     end
@@ -481,7 +481,7 @@ function forgit::rebase -d "git rebase"
     forgit::inside_work_tree || return 1
 
     if set -q FORGIT_LOG_GRAPH_ENABLE
-        set graph --graph
+        set graph "--graph"
     else
         set graph ""
     end
@@ -518,7 +518,7 @@ if test -z "$FORGIT_GI_REPO_REMOTE"
 end
 
 if test -z "$FORGIT_GI_REPO_LOCAL"
-    if test -z XDG_CACHE_HOME
+    if test -z "XDG_CACHE_HOME"
         set -g FORGIT_GI_REPO_LOCAL $XDG_CACHE_HOME/forgit/gi/repos/dvcs/gitignore
     else
         set -g FORGIT_GI_REPO_LOCAL $HOME/.cache/forgit/gi/repos/dvcs/gitignore
@@ -544,19 +544,19 @@ function forgit::ignore -d "git ignore generator"
     set IFS '\n'
 
     set args $argv
-    if not count $argv >/dev/null
+    if not count $argv > /dev/null
         set args (forgit::ignore::list | nl -nrn -w4 -s'  ' |
         env FZF_DEFAULT_OPTS="$opts" fzf |awk '{print $2}')
     end
 
-    if not count $args >/dev/null
-        return 1
-    end
+     if not count $args > /dev/null
+         return 1
+     end
 
-    forgit::ignore::get $args
+     forgit::ignore::get $args
 end
 
-function forgit::revert::commit --argument-names commit_hash --wraps "git revert --"
+function forgit::revert::commit --argument-names 'commit_hash' --wraps "git revert --"
     if test -n "$commit_hash"
         git revert -- "$commit_hash"
         set revert_status $status
@@ -623,8 +623,8 @@ end
 set -g FORGIT_FZF_DEFAULT_OPTS "
 $FZF_DEFAULT_OPTS
 --ansi
---height='60%'
---layout='reverse-list'
+--height='80%'
+
 --bind='alt-k:preview-up,alt-p:preview-up'
 --bind='alt-j:preview-down,alt-n:preview-down'
 --bind='ctrl-r:toggle-all'

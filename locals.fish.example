@@ -4,6 +4,7 @@ set --universal setup_fancy_cli_tools true
 set --universal setup_network_tools true
 set --universal setup_ssh_primary true
 set --universal use_tmux true
+set --universal setup_fish_plugins true
 set --universal setup_golang_environment false
 set --universal setup_node_environment false
 set --universal setup_python_environment false

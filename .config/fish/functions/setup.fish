@@ -191,11 +191,20 @@ function setup
 
 
     # NODE
-    if has-setup-option setup_node_environment or has-setup-option setup_neovim
+    if has-setup-option setup_node_environment
         install-package --name node --macport nodejs14 --apt nodejs
         install-package --name npm --macport npm8 --apt SKIP
 
         log-line-colored "... done setting up node" green
+    end
+
+    if has-setup-option setup_fish_plugins
+        if fisher --version | grep -e 4.4 1>/dev/null 2>&1
+            echo HERE
+
+            # curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+        end
+        fisher update
     end
 
 
