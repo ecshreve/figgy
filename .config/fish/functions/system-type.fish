@@ -10,10 +10,6 @@ function system-type
     else if test (uname) = Darwin
         echo macos
         return
-    else if test (uname) = FreeBSD
-        echo freebsd
-        return
     end
-
     echo unknown
 end

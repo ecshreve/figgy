@@ -8,31 +8,31 @@ function setup
         exit 1
     end
 
-    # 
+    # Set unicode symbol to use in fish prompt and tmux status bar.
     if test $system_type = macos
         set sigil 
     else
         set sigil 
     end
 
-    # Set local config variables based on user input and var file.
-    echo -n Setting up on $system_type
+    # Set local config variables based on input and var file.
+    log-line-colored "Setting up on $system_type" blue
+
     setup-locals
+
     set -l locals_count (count < ~/locals.fish)
     set -l example_locals_count (count < ~/locals.fish.example)
 
     if test ! -f ~/locals.fish || test $locals_count -ne $example_locals_count
-        log-line-colored "... some local config variables are not set" red
+        log-line-colored "... local variables do not match example file" red
     end
 
     #  Set local machine related values.
-    echo "set --universal machine_name "(hostname) >>~/locals.fish
-    echo "set --universal machine_user "(whoami) >>~/locals.fish
-    echo "set --universal machine_sigil $sigil" >>~/locals.fish
-    source ~/locals.fish
+    set --universal machine_name (hostname)
+    set --universal machine_user (whoami)
+    set --universal machine_sigil $sigil
 
     log-line-colored "... done setting up locals" green
-
 
 
     # SSH
@@ -40,7 +40,6 @@ function setup
         setup-ssh-key
         log-line-colored "... done setting up ssh" green
     end
-
 
 
     # DEV-TOOLS
@@ -62,7 +61,6 @@ function setup
 
         log-line-colored "... done setting up dev tools" green
     end
-
 
 
     # FANCY-TOOLS
@@ -87,12 +85,11 @@ function setup
         install-package --name htop
         install-package --name jq
         install-package --name ncdu
-        install-package --name ripgrep
+        install-package --name rg --apt ripgrep
         install-package --name tree
 
         log-line-colored "... done setting up cli" green
     end
-
 
 
     # TMUX
@@ -101,7 +98,6 @@ function setup
 
         log-line-colored "... done setting up tmux" green
     end
-
 
 
     # NET-TOOLS
@@ -116,23 +112,28 @@ function setup
     end
 
 
-
     # TODO: change this to use versioncheck
     #
     # * GOLANG
-    # This function is special cased to my ubuntu install right now.
+    # This function has only been tested on my ubuntu install right now.
     if has-setup-option setup_golang_environment
         if test $system_type = macos
-            log-line-colored "SKIPPING GO INSTSALLSTION ON MACOS..." orange
+            log-line-colored "SKIPPING GO INSTALLATION ON MACOS..." orange
             return
         end
 
-        if is-installed go or test (go version) != "go version go1.19.3 linux/amd64"
+        # Only try to install if go isn't already installed.
+        #
+        # TODO: put this version in a const file somewhere.
+        if not is-installed go || test (go version) != "go version go1.19.3 linux/amd64"
             wget https://go.dev/dl/go1.19.3.linux-amd64.tar.gz
             rm -rf /usr/local/go
             tar -C /usr/local -xzf go1.19.3.linux-amd64.tar.gz
             fish_add_path /usr/local/go/bin
             rm go1.19.3.linux-amd64.tar.gz*
+        else
+            set v (go version)
+            log-line-colored "SKIPPING GO INSTALL -- ALREADY INSTALLED VERSION: $v" purple
         end
 
         if test -z (go version)
@@ -147,6 +148,9 @@ function setup
                 end
             end
 
+            log-line-colored "INSTALLING GO TOOLS..." purple
+
+            # TODO: audit these go tools
             _install_go_tool gore github.com/x-motemen/gore/cmd/gore
             _install_go_tool gocode github.com/stamblerre/gocode
             _install_go_tool godoc golang.org/x/tools/cmd/godoc
@@ -159,7 +163,6 @@ function setup
             log-line-colored "... done setting up golang" green
         end
     end
-
 
 
     # PYTHON
@@ -187,25 +190,14 @@ function setup
     end
 
 
-
     # NODE
     if has-setup-option setup_node_environment or has-setup-option setup_neovim
         install-package --name node --macport nodejs14 --apt nodejs
         install-package --name npm --macport npm8 --apt SKIP
 
-
         log-line-colored "... done setting up node" green
     end
 
-
-
-    # MARKDOWN 
-    if has-setup-option setup_markdown_environment
-        install-package --name pandoc
-        install-package --name tex --macport texlive-latex-recommended
-
-        log-line-colored "... done setting up markdown" green
-    end
 
     log-line-colored "~~~ DONE with setup ~~~" blue
 end

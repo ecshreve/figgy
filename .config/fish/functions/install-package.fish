@@ -1,5 +1,5 @@
 function install-package
-    argparse 'n-name=' 'm-macport=' 'a-apt=' 'b-freebsdpkg=' 'c-versioncheck=' -- $argv
+    argparse 'n-name=' 'm-macport=' 'a-apt=' 'c-versioncheck=' -- $argv
 
     if test -z "$_flag_name"
         echo "required name not provided to install-package"
@@ -21,7 +21,7 @@ function install-package
         case macos
             set -l package (with-default $_flag_name $_flag_macport)
             if test $package = SKIP
-                echo log-line-colored "-- SKIPPING $_flag_name --" red
+                log-line-colored "-- SKIPPING $_flag_name --" red
                 return
             end
 
@@ -34,7 +34,7 @@ function install-package
         case apt
             set -l package (with-default $_flag_name $_flag_apt)
             if test $package = SKIP
-                echo log-line-colored "-- SKIPPING $_flag_name --" red
+                log-line-colored "-- SKIPPING $_flag_name --" red
                 return
             end
 
@@ -43,21 +43,7 @@ function install-package
             else
                 sudo apt-get install -y $package
             end
-
-        case freebsd
-            set -l package (with-default $_flag_name $_flag_freebsdpkg)
-            if test $package = SKIP
-                echo log-line-colored "-- SKIPPING $_flag_name --" red
-                return
-            end
-
-            if string match -rq 'function:(?<fun>.*)' "$package"
-                $fun
-            else
-                sudo pkg install $package
-            end
-
         case '*'
-            echo Could not install $_flag_name on (system-type)
+            log-line-colored "Could not install $_flag_name on (system-type)" red
     end
 end
