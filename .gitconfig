@@ -29,3 +29,10 @@ email = eric@shreve.dev
 	old = red bold
 	new = green bold
 	whitespace = red reverse
+
+[help]
+	autocorrect = 1
+
+[alias]
+	uncommit = "reset HEAD~"
+	backtrack = "rebase -i HEAD~10"

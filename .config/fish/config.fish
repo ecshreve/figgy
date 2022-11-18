@@ -15,7 +15,8 @@ if status is-interactive
     abbr -a clog config log
 
     # git aliases
+    abbr -a gaa git add --all
+    abbr -a guu git add -u
     abbr -a gst git status
-    abbr -a gcmsg git commit -m 
-
+    abbr -a gcmsg git commit -m
 end

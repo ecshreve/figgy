@@ -4,15 +4,21 @@ set -euo pipefail
 
 cd "$HOME" || exit
 
-# TODO: check for git install here maybe?
+# check for git installation
+if [ -x "$(command -v git)" ]; then
+  echo 'git is not installed' >&2
+  exit 1
+fi
+
+# check for existing config repo
 if ! test -d "$HOME/.cfg" ; then
   echo Cloning dotfiles
-
   git clone --bare https://github.com/ecshreve/figgy.git "$HOME/.cfg"
   git --git-dir="$HOME/.cfg/" --work-tree="$HOME" checkout
   git --git-dir="$HOME/.cfg/" --work-tree="$HOME" pull --force
 fi
 
+# macos specific setup
 if [[ "$OSTYPE" = "darwin"* ]] ; then
   if ! xcode-select -p 1>/dev/null 2>&1 ; then
     echo Installing XCode tools
@@ -35,6 +41,7 @@ if [[ "$OSTYPE" = "darwin"* ]] ; then
   fi
 fi
 
+# fish shell installation
 if ! which fish 1>/dev/null 2>&1 ; then
   echo Installing Fish
 
@@ -46,4 +53,5 @@ if ! which fish 1>/dev/null 2>&1 ; then
   fi
 fi
 
+# run fish setup script as a command
 fish -c 'setup'

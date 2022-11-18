@@ -12,12 +12,14 @@ function fish_prompt
     set -l green (set_color green)
     set -l magenta (set_color magenta --bold)
     set -l blue (set_color blue)
+    set -l orange (set_color yellow)
 
     set -l ahead $blue"↑"
     set -l behind $blue"↓"
     set -l diverged "⥄ "
-    set -l dirty $red"o"
-    set -l none $green"◦"
+    set -l dirty $red"⦿"
+    set -l staged $orange"⦿"
+    set -l none $green"⦾"
 
     set -l system_type = system-type
 
@@ -33,10 +35,14 @@ function fish_prompt
         echo -n $white "〉"$green" "$white(git_branch_name)" "
 
         # git status
-        if git_is_touched
-            echo -n -s $dirty
+        if git_is_staged
+            echo -n -s $staged
         else
-            echo -n -s (git_ahead $ahead $behind $diverged $none)
+            if git_is_touched
+                echo -n -s $dirty
+            else
+                echo -n -s (git_ahead $ahead $behind $diverged $none)
+            end
         end
         echo -n " "
     end
