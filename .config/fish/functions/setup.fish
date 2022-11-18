@@ -58,6 +58,7 @@ function setup
         install-package --name entr
         install-package --name rlwrap
         install-package --name shellcheck
+        install-package --name thefuck
 
         log-line-colored "... done setting up dev tools" green
     end
@@ -68,8 +69,12 @@ function setup
         function _install-fzf-on-apt-system
             git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
             ~/.fzf/install
+
+            set -g fzf_fd_opts --hidden --no-ignore --exclude=.git
+
         end
 
+        
         function _install-diff-fancy-apt
             sudo add-apt-repository ppa:aos1/diff-so-fancy
             sudo apt-get update
@@ -199,12 +204,20 @@ function setup
     end
 
     if has-setup-option setup_fish_plugins
-        if fisher --version | grep -e 4.4 1>/dev/null 2>&1
-            echo HERE
-
-            # curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+        if ! fisher --version | grep -e 4.4 1>/dev/null 2>&1
+            curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
         end
-        fisher update
+
+        set -l desired_count (count < ~/.config/fish/fish_plugins)
+        set -l installed_count (fisher list | count)
+    
+        if test $desired_count -ne $installed_count
+            log-line-colored "updating fisher plugins" magenta
+            fisher update
+            fzf_configure_bindings --directory=\cff --git_log=\cfl --git_status=\cfs --processes=\cfp --variables=\cfv
+        end
+
+        log-line-colored "... done setting up fish plugins" green
     end
 
 

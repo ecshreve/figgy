@@ -624,7 +624,6 @@ set -g FORGIT_FZF_DEFAULT_OPTS "
 $FZF_DEFAULT_OPTS
 --ansi
 --height='80%'
-
 --bind='alt-k:preview-up,alt-p:preview-up'
 --bind='alt-j:preview-down,alt-n:preview-down'
 --bind='ctrl-r:toggle-all'
