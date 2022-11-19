@@ -1,3 +1,3 @@
-function fuck -d "Correct your previous console command"
+function fuck -d "Correct the previous console command"
     thefuck --alias | source
 end

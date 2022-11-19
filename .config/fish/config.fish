@@ -3,8 +3,8 @@ fzf_configure_bindings --directory=\cff --git_log=\cfl --git_status=\cfs --proce
 if status is-interactive
     # commands to run in interactive sessions can go here
 
-    # preserve scrollback buffer
-    alias clear="clear -x"
+    # general abbreviations
+    abbr -a ll ls -al
 
     # convenience abbreviations for config git repo
     abbr -a caa config add
@@ -14,7 +14,7 @@ if status is-interactive
     abbr -a ciff config diff
     abbr -a clog config log
 
-    # git aliases
+    # general git abbreviations
     abbr -a gaa git add --all
     abbr -a guu git add -u
     abbr -a gst git status
