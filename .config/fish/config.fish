@@ -3,6 +3,14 @@ fzf_configure_bindings --directory=\cff --git_log=\cfl --git_status=\cfs --proce
 if status is-interactive
     # commands to run in interactive sessions can go here
 
+    # aliases
+    alias cl="clear -x"
+    alias clear="clear -x"
+    alias top htop
+    alias cat bat
+    alias ls 'exa --icons'
+    alias date-iso 'date -u +%H:%M:%S:%z'
+
     # general abbreviations
     abbr -a ll ls -al
 
