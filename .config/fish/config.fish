@@ -2,6 +2,9 @@ fzf_configure_bindings --directory=\cff --git_log=\cfl --git_status=\cfs --proce
 
 if status is-interactive
     # commands to run in interactive sessions can go here
+    set -xg FZF_DEFAULT_OPTS '--cycle --layout=reverse --border --height=90% --preview-window=nowrap --marker="*"'
+    set -xg fzf_processes_opts --preview-window="top:4:wrap"
+    set -xg fzf_history_opts --preview-window="top:4:wrap"
 
     # aliases
     alias cl="clear -x"
