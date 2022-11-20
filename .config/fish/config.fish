@@ -16,6 +16,8 @@ if status is-interactive
 
     # general abbreviations
     abbr -a ll ls -al
+    abbr -a rr rm -rf
+    abbr -a mkdirp mkdir -p
 
     # convenience abbreviations for config git repo
     abbr -a caa config add
