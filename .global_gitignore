@@ -6,3 +6,6 @@
 **/.config/fish/conf.d/abbr_tips.fish
 **/.config/fish/conf.d/forgit.plugin.fish
 **/.config/fish/conf.d/z.fish
+**/.config/fish/conf.d/fzf.fish
+**/.config/fish/completions/fzf_configure_bindings.fish
+**/.config/fish/functions/fzf_configure_bindings.fish
