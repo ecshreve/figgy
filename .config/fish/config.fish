@@ -1,5 +1,3 @@
-fzf_configure_bindings --directory=\cff --git_log=\cfl --git_status=\cfs --processes=\cfp --variables=\cfv
-
 if status is-interactive
     # commands to run in interactive sessions can go here
     set -xg FZF_DEFAULT_OPTS '--cycle --layout=reverse --border --height=90% --preview-window=nowrap --marker="*"'
@@ -32,4 +30,6 @@ if status is-interactive
     abbr -a guu git add -u
     abbr -a gst git status
     abbr -a gcmsg git commit -m
+
+    fzf_configure_bindings --directory=\cff --git_log=\cfl --git_status=\cfs --processes=\cfp --variables=\cfv
 end
