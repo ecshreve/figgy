@@ -5,10 +5,10 @@ set -euo pipefail
 cd "$HOME" || exit
 
 # check for git installation
-if [ -x "$(command -v git)" ]; then
-  echo 'git is not installed' >&2
-  exit 1
-fi
+# if [ -x "$(command -v git)" ]; then
+#   echo 'git is not installed' >&2
+#   exit 1
+# fi
 
 # check for existing config repo
 if ! test -d "$HOME/.cfg" ; then
