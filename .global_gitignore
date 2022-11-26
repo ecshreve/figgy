@@ -1,3 +1,5 @@
 #shreve global gitignore
 
 **/fish_variables
+
+**/.config/**/+(__abbr|__z|_fzf)*.fish
