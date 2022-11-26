@@ -10,6 +10,11 @@ cd "$HOME" || exit
 #   exit 1
 # fi
 
+if [ -f ~/.gitconfig ]; then
+  echo "Backing up ~/.gitconfig"
+  mv ~/.gitconfig ~/.gitconfig.bak
+fi
+
 # check for existing config repo
 if ! test -d "$HOME/.cfg" ; then
   echo Cloning dotfiles
