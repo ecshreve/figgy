@@ -2,4 +2,7 @@
 
 **/fish_variables
 
-**/.config/**/+(__abbr|__z|_fzf)*.fish
+**/.config/fish/functions/+(__abbr|__z|_fzf)*.fish
+**/.config/fish/conf.d/abbr_tips.fish
+**/.config/fish/conf.d/forgit.plugin.fish
+**/.config/fish/conf.d/z.fish
