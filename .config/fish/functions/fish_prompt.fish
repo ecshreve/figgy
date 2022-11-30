@@ -12,13 +12,13 @@ function fish_prompt
     set -l green (set_color green)
     set -l magenta (set_color magenta --bold)
     set -l blue (set_color blue)
-    set -l orange (set_color yellow)
+    set -l red (set_color yellow)
 
     set -l ahead $blue"↑"
     set -l behind $blue"↓"
     set -l diverged "⥄ "
     set -l dirty $red"⦿"
-    set -l staged $orange"⦿"
+    set -l staged $red"⦿"
     set -l none $green"⦾"
 
     set -l system_type = system-type

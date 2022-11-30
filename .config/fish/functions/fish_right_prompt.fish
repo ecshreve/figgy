@@ -3,7 +3,7 @@ function fish_right_prompt
     set -l normal_color (set_color normal)
     set -l blue (set_color blue)
     set -l green (set_color green)
-    set -l orange (set_color yellow)
+    set -l yellow (set_color yellow)
     set -l red (set_color BD3F39)
 
     set -l prompt_bk (set_color 3c3836)
@@ -16,7 +16,7 @@ function fish_right_prompt
     if test $cmd_dur -gt 100
         echo -n $red
     else if test $cmd_dur -gt 10
-        echo -n $orange
+        echo -n $yellow
     else
         echo -n $green
     end

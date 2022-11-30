@@ -132,7 +132,7 @@ function setup
     # This function has only been tested on my ubuntu install right now.
     if has-setup-option setup_golang_environment
         if test $system_type = macos
-            log-line-colored "SKIPPING GO INSTALLATION ON MACOS..." orange
+            log-line-colored "SKIPPING GO INSTALLATION ON MACOS..." red
             return
         end
 
@@ -152,7 +152,7 @@ function setup
 
         if test -z (go version)
             log-line-colored "ERROR INSTALLING GO..." red
-            log-line-colored "SKIPPING GO TOOLS INSTALL..." orange
+            log-line-colored "SKIPPING GO TOOLS INSTALL..." red
         else
             set -gx GO111MODULE on
 
