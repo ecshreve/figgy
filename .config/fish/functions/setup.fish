@@ -213,7 +213,7 @@ function setup
     end
 
     if has-setup-option setup_fish_plugins
-        if ! fisher --version | grep -e 4.4 1>/dev/null 2>&1
+        if ! is-installed fisher || ! fisher --version | grep -e 4.4 1>/dev/null 2>&1
             curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
         end
 
