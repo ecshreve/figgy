@@ -60,3 +60,5 @@ fi
 
 # run fish setup script as a command
 fish -c 'setup'
+
+exit 0
