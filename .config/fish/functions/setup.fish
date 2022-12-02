@@ -221,4 +221,5 @@ function setup
 
 
     log-line-colored "~~~ DONE with setup ~~~" blue
+    return 0
 end
