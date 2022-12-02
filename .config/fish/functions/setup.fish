@@ -213,18 +213,13 @@ function setup
     end
 
     if has-setup-option setup_fish_plugins
-        if ! is-installed fisher || ! fisher --version | grep -e 4.4 1>/dev/null 2>&1
+        if ! is-installed fisher
+            log-line-colored "installing fisher" magenta
             curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
         end
 
-        set -l desired_count (count < ~/.config/fish/fish_plugins)
-        set -l installed_count (fisher list | count)
-
-        if test $desired_count -ne $installed_count
-            log-line-colored "updating fisher plugins" magenta
-            fisher update
-        end
-
+        log-line-colored "updating fisher plugins" magenta
+        fisher update
         log-line-colored "... done setting up fish plugins" green
     end
 
