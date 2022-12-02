@@ -100,7 +100,8 @@ function setup
         install-package --name tree
         install-package --name exa --apt function:_install-exa-apt
 
-        ln -s /usr/bin/batcat /usr/bin/bat
+        sudo ln -s /usr/bin/batcat /usr/bin/bat
+        sudo ln -s /usr/bin/fdfind /usr/bin/fd
 
         log-line-colored "... done setting up cli" green
     end
