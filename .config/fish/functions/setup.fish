@@ -73,18 +73,13 @@ function setup
         function _install-exa-apt
             wget https://github.com/ogham/exa/releases/download/v0.10.0/exa-linux-x86_64-v0.10.0.zip
             unzip exa-linux-x86_64-v0.10.0.zip
-            mv ~/bin/exa /usr/local/bin/exa
+            sudo mv ~/bin/exa /usr/local/bin/exa
             mv ~/completions/exa.fish ~/.config/fish/completions/exa.fish
 
             if test ! -d ~/.local/man/man1
                 mkdir -p ~/.local/man/man1
             end
             mv ~/man/exa.1 ~/.local/man/man1/exa.1
-
-            if test ! -d ~/.local/man/man5
-                mkdir -p ~/.local/man/man5
-            end
-            mv ~/man/exa.5 ~/.local/man/man5/exa.5
         end
 
         install-package --name autojump
