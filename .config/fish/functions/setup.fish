@@ -211,11 +211,18 @@ function setup
     if has-setup-option setup_fish_plugins
         if ! is-installed fisher
             log-line-colored "installing fisher" magenta
+            if test -f ~/.config/fish/fish_plugins 
+                mv ~/.config/fish/fish_plugins ~/.config/fish/fish_plugins.bak
+            end
             curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+            mv ~/.config/fish/fish_plugins.bak ~/.config/fish/fish_plugins
         end
 
         log-line-colored "updating fisher plugins" magenta
         fisher update
+        log-line-colored "set fzf bindings" magenta
+
+        fzf_configure_bindings --directory=\cff --git_log=\cfl --git_status=\cfs --processes=\cfp --variables=\cfv
         log-line-colored "... done setting up fish plugins" green
     end
 
