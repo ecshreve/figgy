@@ -10,13 +10,13 @@ cd "$HOME" || exit
 #   exit 1
 # fi
 
-if [ -f ~/.gitconfig ]; then
-  echo "Backing up ~/.gitconfig"
-  mv ~/.gitconfig ~/.gitconfig.bak
-fi
-
 # check for existing config repo
 if ! test -d "$HOME/.cfg" ; then
+  if [ -f ~/.gitconfig ]; then
+    echo "backing up existing up ~/.gitconfig"
+    mv ~/.gitconfig ~/.gitconfig.bak
+  fi
+  
   echo Cloning dotfiles
   git clone --bare https://github.com/ecshreve/figgy.git "$HOME/.cfg"
   git --git-dir="$HOME/.cfg/" --work-tree="$HOME" checkout
