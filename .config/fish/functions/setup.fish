@@ -220,9 +220,7 @@ function setup
 
         log-line-colored "updating fisher plugins" magenta
         fisher update
-        log-line-colored "set fzf bindings" magenta
 
-        fzf_configure_bindings --directory=\cff --git_log=\cfl --git_status=\cfs --processes=\cfp --variables=\cfv
         log-line-colored "... done setting up fish plugins" green
     end
 
