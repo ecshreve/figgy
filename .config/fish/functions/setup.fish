@@ -80,6 +80,8 @@ function setup
                 mkdir -p ~/.local/man/man1
             end
             mv ~/man/exa.1 ~/.local/man/man1/exa.1
+
+            rm exa-linux-x86_64-v0.10.0.zip
         end
 
         install-package --name autojump

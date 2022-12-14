@@ -5,3 +5,5 @@ end
 
 fzf_configure_bindings --directory=\cff --git_log=\cfl --git_status=\cfs --processes=\cfp --variables=\cfv
 
+
+fzf_key_bindings
