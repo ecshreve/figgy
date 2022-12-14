@@ -11,7 +11,7 @@ The `rev1-11-22` branch was created when I had everything running how I wanted. 
 I don't suggest running the setup, but it exists in the root of the repo to allow installing the dotfiles repo via this command
 
 ```
-curl -u ecshreve https://raw.githubusercontent.com/ecshreve/figgy/main/setup | bash -s
+curl https://raw.githubusercontent.com/ecshreve/figgy/main/install | bash -s
 ```
 
 This all works for me, on my machines. I know there were some special snowflake things I did along the way to get everything working but I forget what all those things are.
