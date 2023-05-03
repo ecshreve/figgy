@@ -11,7 +11,7 @@ function fish_right_prompt
 
 
     set -l cmd_dur $CMD_DURATION
-    set -l cur_time (date -u +%H:%M:%S:%z)
+    set -l cur_time (date -u +%H:%M:%S)
 
     if test $cmd_dur -gt 100
         echo -n $red
@@ -23,7 +23,7 @@ function fish_right_prompt
 
     #  4 ms | 07:49:30:+0000 
     # echo -n " $cmd_dur ms | $cur_time " $normal_color
-    echo -n ""$bk_color" $cmd_dur ms "
+    echo -n ""$bk_color" $cmd_dur ms | $cur_time "
     echo -n $prompt_bk""$bk_color$blue "$(whoami)@$hostname "$normal_color$prompt_bk""
 
 end

@@ -1,0 +1,10 @@
+---
+- name: Add fish apt repository
+  ansible.builtin.apt_repository:
+    repo: ppa:fish-shell/release-3
+    update_cache: true
+
+- name: Install package
+  ansible.builtin.apt:
+    name: fish
+    update_cache: true
