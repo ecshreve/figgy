@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
+set -x 
 
 cd "$HOME" || exit
 
@@ -26,18 +26,19 @@ fi
 if ! which python3 1>/dev/null 2>&1 ; then
   echo Installing python3
   sudo apt-get update -y
-  sudo apt-get install python3
+  sudo apt-get install -y python3
 fi
 
 if ! which pip 1>/dev/null 2>&1 ; then
   echo Installing pip
   sudo apt-get update -y
-  sudo apt-get install python3-pip
+  sudo apt-get install -y python3-pip
 fi
 
 if ! which ansible 1>/dev/null 2>&1 ; then
   echo Installing ansible
-  pip3 install --user ansible
+  python3 -m pip install --user ansible
+  PATH="$PATH:$HOME/.local/bin"
 fi
 
-ansible-playbook .cfg/ansible/playbook.yml -v
+ansible-playbook $HOME/ansible/playbook.yml -v
