@@ -42,3 +42,4 @@ if ! which ansible 1>/dev/null 2>&1 ; then
 fi
 
 ansible-playbook $HOME/ansible/playbook.yml -v
+fish -c 'setup'

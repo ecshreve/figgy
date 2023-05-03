@@ -31,4 +31,6 @@ if status is-interactive
     abbr -a gst git status
     abbr -a gcmsg git commit -m
     abbr -a gcm git checkout main
+
+    fzf_configure_bindings --directory=\cff --git_log=\cfl --git_status=\cfs --processes=\cfp --variables=\cfv
 end
