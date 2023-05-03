@@ -13,16 +13,13 @@ function setup
     if ! is-installed fisher
         log-line-colored "installing fisher" magenta
         curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+        log-line-colored "installing fisher plugins" magenta
         fisher install patrickf1/fzf.fish
         fisher install jethrokuan/z
         fisher install gazorby/fish-abbreviation-tips
         fisher install wfxr/forgit
+        log-line-colored "... done installing fisher plugins" green
     end
-
-    log-line-colored "updating fisher plugins" magenta
-    fisher update
-
-    log-line-colored "... done setting up fish plugins" green
 
     log-line-colored "Done setting up on $system_type" blue
 end
