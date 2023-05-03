@@ -1,0 +1,59 @@
+---
+- name: Ensure old versions of Docker are NOT installed
+  ansible.builtin.package:
+    name:
+      - docker
+      - docker-engine
+      - docker
+      - docker.io
+      - containerd
+      - runc
+    state: absent
+    update-cache: true
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: Ensure dependencies ARE installed (ubuntu >= 20.04)
+  ansible.builtin.apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - gnupg
+    state: present
+    update-cache: true
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: Add Docker apt gpg key
+  ansible.builtin.apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: Add Docker repository
+  ansible.builtin.apt_repository:
+    repo: "deb https://download.docker.com/linux/ubuntu {{ release }} stable"
+    state: present
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: Install Docker packages
+  ansible.builtin.apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - docker-ce-rootless-extras
+      - containerd.io
+      - docker-compose-plugin
+    state: present
+    update_cache: true
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: Add Docker python package
+  ansible.builtin.pip:
+    name: docker
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: Restart docker and enable at boot
+  ansible.builtin.service:
+    name: docker
+    state: restarted
+    enabled: true
+  ignore_errors: "{{ ansible_check_mode }}"

@@ -1,0 +1,21 @@
+---
+- name: Add Hashicorp apt key
+  ansible.builtin.apt_key:
+    url: https://apt.releases.hashicorp.com/gpg
+    state: present
+
+- name: Add Hashicorp apt repo
+  ansible.builtin.apt_repository:
+    repo: "deb https://apt.releases.hashicorp.com {{ release }} main"
+    state: present
+
+- name: Install Hashicorp tools
+  ansible.builtin.apt:
+    name:
+      - consul
+      - nomad
+      - packer
+      - terraform
+      - vagrant
+      - vault
+    update_cache: true

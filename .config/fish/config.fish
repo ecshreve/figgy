@@ -30,4 +30,5 @@ if status is-interactive
     abbr -a guu git add -u
     abbr -a gst git status
     abbr -a gcmsg git commit -m
+    abbr -a gcm git checkout main
 end

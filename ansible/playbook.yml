@@ -1,0 +1,10 @@
+---
+- name: Install tools
+  hosts: localhost
+  become: true
+  roles:
+    - general
+    - fish
+    - hashitools
+    - docker
+    
