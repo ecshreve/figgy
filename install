@@ -41,5 +41,5 @@ if ! which ansible 1>/dev/null 2>&1 ; then
   PATH="$PATH:$HOME/.local/bin"
 fi
 
-ansible-playbook $HOME/ansible/playbook.yml -v
+ansible-playbook $HOME/ansible/playbook.yml -vvv
 fish -c 'setup'
