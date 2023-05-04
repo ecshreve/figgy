@@ -3,6 +3,7 @@
   ansible.builtin.apt:
     name:
       - acl
+      - apt-utils
       - autojump
       - bash
       - bat
