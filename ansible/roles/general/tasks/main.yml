@@ -22,7 +22,6 @@
       - nodejs
       - prettyping
       - python3-pip
-      - python-dev
       - ripgrep
       - rlwrap
       - shellcheck
