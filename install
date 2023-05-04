@@ -43,3 +43,4 @@ fi
 
 ansible-playbook $HOME/ansible/playbook.yml -vvv
 fish -c 'setup'
+exit 0
