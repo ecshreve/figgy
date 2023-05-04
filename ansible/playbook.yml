@@ -5,5 +5,5 @@
   roles:
     - general
     - fish
-    - hashitools
-    - docker
+#     - hashitools
+#     - docker
