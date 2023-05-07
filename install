@@ -43,6 +43,7 @@ fi
 
 rm $HOME/.bash_profile
 echo "export PATH=\$PATH:\$HOME/.local/bin" > $HOME/.bash_profile
+source $HOME/.bash_profile
 
 ansible-playbook $HOME/ansible/playbook.yml -vvv
 fish -c 'setup'
