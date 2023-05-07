@@ -39,8 +39,10 @@ if ! which ansible 1>/dev/null 2>&1 ; then
   echo Installing ansible
   python3 -m pip install --user ansible
   python3 -m pip install --user ansible-lint
-  echo "export PATH=$PATH:$HOME/.local/bin" > $HOME/.bash_profile
 fi
+
+rm $HOME/.bash_profile
+echo "export PATH=\$PATH:\$HOME/.local/bin" > $HOME/.bash_profile
 
 ansible-playbook $HOME/ansible/playbook.yml -vvv
 fish -c 'setup'
