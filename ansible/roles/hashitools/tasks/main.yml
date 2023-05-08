@@ -9,13 +9,13 @@
     repo: "deb https://apt.releases.hashicorp.com jammy main"
     state: present
 
-# - name: Install Hashicorp tools
-#   ansible.builtin.apt:
-#     name:
-#       - consul
-#       - nomad
-#       - packer
-#       - terraform
+- name: Install Hashicorp tools
+  ansible.builtin.apt:
+    name:
+      - packer
+      - terraform
 #       - vagrant
 #       - vault
-#     update_cache: true
+#       - consul
+#       - nomad
+    update_cache: true
