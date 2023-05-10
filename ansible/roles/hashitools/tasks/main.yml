@@ -6,16 +6,16 @@
 
 - name: Add Hashicorp apt repo
   ansible.builtin.apt_repository:
-    repo: "deb https://apt.releases.hashicorp.com jammy main"
+    repo: "deb https://apt.releases.hashicorp.com {{ release }} main"
     state: present
 
 - name: Install Hashicorp tools
   ansible.builtin.apt:
     name:
-      - packer
       - terraform
-#       - vagrant
-#       - vault
-#       - consul
-#       - nomad
+      - packer
+      - vagrant
+      - vault
+      - consul
+      - nomad
     update_cache: true
