@@ -6,7 +6,7 @@
 
 - name: Add Hashicorp apt repo
   ansible.builtin.apt_repository:
-    repo: "deb https://apt.releases.hashicorp.com {{ release }} main"
+    repo: "deb https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
     state: present
 
 - name: Install Hashicorp tools
