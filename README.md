@@ -4,10 +4,21 @@ This repo contains my personal dotfiles and configurations.
 
 <br>
 
-## fish prompt / tmux status bar
+## installation / setup
 
-custom prompt and status line
-![](.config/figgy-img/prompt-and-status-bar.png)
+For the most part I install this configuration on linux virtual machines
+running in proxmox. Some of these tools and parts of the setup are baked 
+into the docker images built from this repo: [dev-env](https://github.com/ecshreve/dev-env).
+
+This is the one liner I use from a terminal, ansible playbook, dockerfile,
+or shell script.
+
+`curl https://raw.githubusercontent.com/ecshreve/figgy/main/install | bash -s`
+
+## fish
+
+fish prompt and tmux status line
+![](.config/figgy-img/prompt.png)
 
 <br>
 
