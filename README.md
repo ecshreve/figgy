@@ -2,42 +2,41 @@
 
 This repo contains my personal dotfiles and configurations.
 
+<br>
+
 ## fish prompt / tmux status bar
 
-fully custom prompt and status line
+custom prompt and status line
 ![](.config/figgy-img/prompt-and-status-bar.png)
+
+<br>
 
 ## fzf
 
-- launch fzf command history viewer
+`CTRL+r`: launch fzf command history viewer
 
-`CTRL+r`
+`CTRL+f + f`: launch fzf file/directory viewer
 
-- launch fzf file/directory viewer
+`CTRL+f + p`: launch fzf process viewer
 
-`CTRL+f + f`
+`CTRL+f + v`: launch fzf variable viewer
 
-- launch fzf process viewer
+demo
+![](.config/figgy-img/fzfdemo.gif)
 
-`CTRL+f + p`
+<br>
 
-- launch fzf variable viewer
-
-`CTRL+f + v`
+## git + fzf
 
 _if the current directory is a git repository, the following also apply:_
 
-- launch fzf git log viewer
+`CTRL+f + l`: launch fzf git log viewer
 
-`CTRL+f + l`
+`CTRL+f + s`: launch fzf git status viewer
 
-- launch fzf git status viewer
+`ga`: interactive `git add` with forgit::fzf
 
-`CTRL+f + s`
-
-- interactive `git add` with forgit::fzf
-
-`ga`
+<br>
 
 ## notes
 
