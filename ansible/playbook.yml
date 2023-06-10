@@ -3,10 +3,10 @@
 - name: Install tools
   hosts: localhost
   become: true
-  vars:
-    manage_docker_service: true
-  roles:
-    - role: ecshreve.docker
+#   vars:
+#     manage_docker_service: true
+#   roles:
+#     - role: ecshreve.docker
   tasks:
     - name: Install general packages
       ansible.builtin.apt:
