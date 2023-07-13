@@ -46,7 +46,7 @@ echo "export PATH=\$PATH:\$HOME/.local/bin" > $HOME/.bash_profile
 source $HOME/.bash_profile
 
 echo "Running ansible playbook"
-ansible-playbook $HOME/ansible/playbook.yml -vvv
+ansible-playbook $HOME/.cfg/ansible/playbook.yml -vvv
 
 fish -c 'setup'
 
