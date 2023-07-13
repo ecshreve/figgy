@@ -19,6 +19,7 @@
           - direnv
           - entr
           - fd-find
+          - fzf
           - git
           - gnupg
           - htop
@@ -63,13 +64,13 @@
         update_cache: true
       ignore_errors: "{{ ansible_check_mode }}"
 
-    - name: Install fzf from release binary
-      ansible.builtin.unarchive:
-        src: https://github.com/junegunn/fzf/releases/download/0.38.0/fzf-0.38.0-linux_amd64.tar.gz
-        dest: /usr/local/bin
-        remote_src: true
-        creates: /usr/local/bin/fzf
-      ignore_errors: "{{ ansible_check_mode }}"
+    # - name: Install fzf from release binary
+    #   ansible.builtin.unarchive:
+    #     src: https://github.com/junegunn/fzf/releases/download/0.38.0/fzf-0.38.0-linux_amd64.tar.gz
+    #     dest: /usr/local/bin
+    #     remote_src: true
+    #     creates: /usr/local/bin/fzf
+    #   ignore_errors: "{{ ansible_check_mode }}"
 
     - name: Install exa from release
       ansible.builtin.unarchive:
