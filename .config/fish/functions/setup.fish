@@ -18,6 +18,7 @@ function setup
         fisher install jethrokuan/z
         fisher install gazorby/fish-abbreviation-tips
         fisher install wfxr/forgit
+        fisher install jorgebucaran/nvm.fish
         log-line-colored "... done installing fisher plugins" green
     end
 
