@@ -38,12 +38,13 @@ if ! which ansible 1>/dev/null 2>&1 ; then
   python3 -m pip install --user ansible-lint
 fi
 
-echo "Moving config files"
-mkdir -p $HOME/.config/fish
-cp -r $HOME/.cfg/.config/fish $HOME/.config/fish
-
 echo "Running ansible playbook"
 ansible-playbook $HOME/.cfg/ansible/playbook.yml -vvv
+
+echo "Moving config files"
+rm -rf $HOME/.config/fish
+mkdir -p $HOME/.config/fish
+cp -r $HOME/.cfg/.config/fish $HOME/.config
 
 fish -c 'setup'
 
