@@ -40,6 +40,7 @@
           - tmux
           - tree
           - unzip
+          - software-properties-common
         update_cache: true
       ignore_errors: "{{ ansible_check_mode }}"
 
@@ -83,17 +84,17 @@
     #     creates: /usr/local/bin/exa
     #   ignore_errors: "{{ ansible_check_mode }}"
 
-    - name: Add fish apt repository
-      ansible.builtin.apt_repository:
-        repo: ppa:fish-shell/release-3
-        update_cache: true
-      ignore_errors: "{{ ansible_check_mode }}"
-    - name: Install latest fish package
-      ansible.builtin.apt:
-        name: fish
-        state: present
-        update_cache: true
-      ignore_errors: "{{ ansible_check_mode }}"
+    # - name: Add fish apt repository
+    #   ansible.builtin.apt_repository:
+    #     repo: ppa:fish-shell/release-3
+    #     update_cache: true
+    #   ignore_errors: "{{ ansible_check_mode }}"
+    # - name: Install latest fish package
+    #   ansible.builtin.apt:
+    #     name: fish
+    #     state: present
+    #     update_cache: true
+    #   ignore_errors: "{{ ansible_check_mode }}"
 
     # TODO: install go tools
     # - name: Install go
