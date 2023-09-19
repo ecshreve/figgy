@@ -24,4 +24,5 @@ function setup
     log-line-colored "... done installing fisher plugins" green
 
     log-line-colored "Done setting up on $system_type" blue
+    exit 0
 end
